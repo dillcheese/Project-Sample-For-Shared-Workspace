@@ -11,6 +11,12 @@ namespace MiniGamePlinko
         // Set the initial bounciness value
         public float bounceFactor = 0.5f;
 
+        //the force the ball bounces by when initially being dropped
+        public float wakeUpBounceFactor = 0.8f;
+
+        //the force the ball bounces by when it hits an obstacle    
+        public float obstacleBounceFactor = 0.1f;
+
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -28,14 +34,18 @@ namespace MiniGamePlinko
             //else
             //{
             //}
+
             rb.Sleep();
         }
 
         private void Update()
         {
-            if (Input.anyKeyDown && rb.IsSleeping())
+            if (Input.GetMouseButtonDown(0) && rb.IsSleeping())
             {
                 rb.WakeUp();
+                // Apply a force to the ball in a random direction
+                Vector2 dropDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(0.5f, 1f)).normalized;
+                rb.AddForce(dropDirection * wakeUpBounceFactor, ForceMode2D.Impulse);
             }
 
             if (!rb.IsSleeping())
@@ -45,7 +55,22 @@ namespace MiniGamePlinko
                 cd.sharedMaterial = _material;
             }
 
-            Debug.Log(_material.bounciness);
+            //Debug.Log(_material.bounciness);
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            // Calculate the bounce direction
+            Vector2 incomingDirection = rb.velocity.normalized;
+            Vector2 normal = collision.contacts[0].normal;
+            Vector2 bounceDirection = Vector2.Reflect(incomingDirection, normal);
+
+            // Add a random angle to the bounce direction
+            float angle = Random.Range(-45, 45);
+            bounceDirection = Quaternion.Euler(0, 0, angle) * bounceDirection;
+
+            // Apply the bounce force
+            rb.AddForce(bounceDirection * obstacleBounceFactor, ForceMode2D.Impulse);
         }
     }
 }
