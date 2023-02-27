@@ -23,7 +23,15 @@ namespace MiniGamePlinko
             //transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.fixedDeltaTime);
 
             //this.transform.position = new Vector3(target.position.x - (offset.x / 2f), target.position.y - (offset.y / 4f), this.transform.position.z);
-            this.transform.position = new Vector3(transform.position.x, target.position.y, this.transform.position.z + offset.z);
+
+            if (this.transform.position.y <= -0.5f)
+            {
+                this.transform.position = new Vector3(transform.position.x, -0.5f, this.transform.position.z);
+            }
+            else
+            {
+                this.transform.position = new Vector3(transform.position.x, target.position.y, this.transform.position.z);
+            }
         }
     }
 }

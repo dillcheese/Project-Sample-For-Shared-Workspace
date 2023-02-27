@@ -1,22 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using System;
+using UnityEngine;
 
 namespace MiniGameSpinWheel
 {
-
     public class SpinWheel
     {
+        private float degrees = 360f;
+        private int numberOfRewards = 1;
+        private float maxTime = 4, minTime = 2f;
+        private float timeToSlow = 1f;
+        private float offSet = 0f;
+        private float speed = 20f;
+        private GameObject go;
 
-        float degrees = 360f;
-        int numberOfRewards = 1;
-        float maxTime = 4, minTime = 2f;
-        float timeToSlow = 1f;
-        float offSet = 0f;
-        float speed = 20f;
-        GameObject go;
-
-        Action<int> reward;
+        private Action<int> reward;
 
         /// <summary>
         /// To create a new SpinWheel.
