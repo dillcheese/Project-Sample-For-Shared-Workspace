@@ -21,20 +21,6 @@ namespace MiniGamePlinko
         {
             rb = GetComponent<Rigidbody2D>();
             cd = GetComponent<CircleCollider2D>();
-
-            //GetComponent<CircleCollider2D>().sharedMaterial = _material;
-            // cd.sharedMaterial = _material;
-
-            //_material = rb.sharedMaterial;
-            //if (_material == null)
-            //{
-            //    Debug.LogError("ChangeBounciness script requires a Physics Material 2D component!");
-            //    return;
-            //}
-            //else
-            //{
-            //}
-
             rb.Sleep();
         }
 
@@ -55,7 +41,6 @@ namespace MiniGamePlinko
                 cd.sharedMaterial = _material;
             }
 
-            //Debug.Log(_material.bounciness);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
