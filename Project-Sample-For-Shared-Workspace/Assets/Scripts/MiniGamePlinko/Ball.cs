@@ -17,16 +17,22 @@ namespace MiniGamePlinko
         //the force the ball bounces by when it hits an obstacle    
         public float obstacleBounceFactor = 0.1f;
 
+       // public bool isCameraFocused = false; // added variable
+        private CameraFollow cameraFollow;
+
+
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             cd = GetComponent<CircleCollider2D>();
             rb.Sleep();
+            cameraFollow = Camera.main.GetComponent<CameraFollow>();
+
         }
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) && rb.IsSleeping())
+            if (Input.touchCount == 1 && rb.IsSleeping() && cameraFollow.IsCameraFocused())
             {
                 rb.WakeUp();
                 // Apply a force to the ball in a random direction

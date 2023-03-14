@@ -10,6 +10,8 @@ public class CameraFollow : MonoBehaviour
     public float followSpeed = 5f;
     public float minYPosition = 0.25f;
     public float delay = 2f;
+    private bool isCameraFocused = false;
+
 
     private void Start()
     {
@@ -39,6 +41,13 @@ public class CameraFollow : MonoBehaviour
 
             // Move the camera towards the current position over time
             transform.position = Vector3.MoveTowards(transform.position, currentPosition, followSpeed * Time.deltaTime);
+
+
+            // If the camera has reached the target position, set the isCameraFocused variable to true
+            if (transform.position == currentPosition)
+            {
+                isCameraFocused = true;
+            }
         }
     }
 
@@ -46,5 +55,11 @@ public class CameraFollow : MonoBehaviour
     {
         delayComplete = true;
         //Debug.Log("Camera delay complete!");
+    }
+
+    // Getter for the isCameraFocused variable
+    public bool IsCameraFocused()
+    {
+        return isCameraFocused;
     }
 }
