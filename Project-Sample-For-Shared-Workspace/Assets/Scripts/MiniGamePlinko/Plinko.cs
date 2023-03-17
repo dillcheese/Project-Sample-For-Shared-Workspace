@@ -10,8 +10,10 @@ namespace MiniGamePlinko
         [SerializeField] private List<GameObject> rewardText; //the text showing the rewards
 
         public GameObject win; //win ui
+        public GameObject ball; //ball
 
         public TMP_Text TextReward;
+        public GameObject DropText;
             
         [System.Serializable]
         public class PlinkoReward
@@ -82,6 +84,11 @@ namespace MiniGamePlinko
 
                     win.SetActive(true);
                 }
+            }
+
+            if (ball.GetComponent<Ball>().GetRbStatus() ==false)
+            {
+                DropText.SetActive(false);
             }
         }
     }
