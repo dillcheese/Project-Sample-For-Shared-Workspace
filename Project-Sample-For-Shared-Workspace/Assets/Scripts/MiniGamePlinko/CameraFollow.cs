@@ -1,65 +1,69 @@
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+namespace MiniGamePlinko
 {
-    //public GameObject objectToFollow;
-
-    public Transform objectToFollow;
-
-    private bool delayComplete = false;
-    public float followSpeed = 5f;
-    public float minYPosition = 0.25f;
-    public float delay = 2f;
-    private bool isCameraFocused = false;
-
-
-    private void Start()
+    public class CameraFollow : MonoBehaviour
     {
-        delayComplete = false;
-    }
+        //public GameObject objectToFollow;
 
-    private void Update()
-    {
-        if (!delayComplete)
+        public Transform objectToFollow;
+
+        private bool delayComplete = false;
+        public float followSpeed = 5f;
+        public float minYPosition = 0.25f;
+        public float delay = 2f;
+        public float Offset = 1.5f;
+        private bool isCameraFocused = false;
+
+        private void Start()
         {
-            // Wait for one second
-            Invoke("CompleteDelay", delay);
+            delayComplete = false;
         }
-        if (objectToFollow != null && delayComplete)
+
+        private void Update()
         {
-            // Calculate the desired Y position of the camera
-            float targetYPosition = objectToFollow.position.y;
-
-            // Limit the Y position of the camera
-            targetYPosition = Mathf.Max(targetYPosition, minYPosition);
-
-            // Calculate the current position of the camera
-            Vector3 currentPosition = transform.position;
-
-            // Set the X and Z positions of the current position to the target Y position
-            currentPosition.y = targetYPosition;
-
-            // Move the camera towards the current position over time
-            transform.position = Vector3.MoveTowards(transform.position, currentPosition, followSpeed * Time.deltaTime);
-
-
-            // If the camera has reached the target position, set the isCameraFocused variable to true
-            if (transform.position == currentPosition)
+            if (!delayComplete)
             {
-                isCameraFocused = true;
+                // Wait for one second
+                Invoke("CompleteDelay", delay);
+            }
+
+            if (objectToFollow != null && delayComplete)
+            {
+                // Calculate the desired Y position of the camera
+                float targetYPosition = objectToFollow.position.y - Offset;
+
+                // Limit the Y position of the camera
+                targetYPosition = Mathf.Max(targetYPosition, minYPosition);
+
+                // get the current position of the camera
+                Vector3 currentPosition = transform.position;
+
+                // Set the y position of the current position to the target Y position
+                currentPosition.y = targetYPosition;
+
+                // Move the camera towards the current position over time
+                transform.position =
+                    Vector3.MoveTowards(transform.position, currentPosition, followSpeed * Time.deltaTime);
+
+                // If the camera has reached the target position, set the isCameraFocused variable to true
+                if (transform.position == currentPosition)
+                {
+                    isCameraFocused = true;
+                }
             }
         }
-    }
 
-    private void CompleteDelay()
-    {
-        delayComplete = true;
-        //Debug.Log("Camera delay complete!");
-    }
+        private void CompleteDelay()
+        {
+            delayComplete = true;
+            //Debug.Log("Camera delay complete!");
+        }
 
-    // Getter for the isCameraFocused variable
-    public bool IsCameraFocused()
-    {
-        return isCameraFocused;
+        // Getter for the isCameraFocused variable
+        public bool IsCameraFocused()
+        {
+            return isCameraFocused;
+        }
     }
 }

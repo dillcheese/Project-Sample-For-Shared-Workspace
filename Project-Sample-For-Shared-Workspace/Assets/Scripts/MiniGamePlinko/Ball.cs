@@ -9,16 +9,19 @@ namespace MiniGamePlinko
         public PhysicsMaterial2D _material;
 
         // Set the initial bounciness value
+        [Tooltip("Set bounciness value of the physicsMaterial2D")]
+
         public float bounceFactor = 0.5f;
 
-        //the force the ball bounces by when initially being dropped
-        public float wakeUpBounceFactor = 0.8f;
-
+        [Tooltip("Set the force the ball bounces by when it hits an obstacle")]
         //the force the ball bounces by when it hits an obstacle
         public float obstacleBounceFactor = 0.1f;
 
         // public bool isCameraFocused = false; // added variable
         private CameraFollow cameraFollow;
+
+      //  public GameObject area;
+       // private RectTransform rectTransform;
 
         private void Start()
         {
@@ -33,22 +36,13 @@ namespace MiniGamePlinko
             if (Input.touchCount == 1 && rb.IsSleeping() && cameraFollow.IsCameraFocused())
             {
                 rb.WakeUp();
-                // Apply a force to the ball in a random direction
 
-                // Get the position of the touch input and the ball
+                //get touch
                 Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-                Vector2 ballPosition = transform.position;//pos of the ball
-
-                // Calculate the drop direction on the x-axis clamped between 2
-                float xDirection = Mathf.Clamp(touchPosition.x - ballPosition.x, -2f, 2f);
-
-                // Set the minimum force to 1
-                float force = Mathf.Max(Mathf.Abs(xDirection), 1.0f);
-
-                //get dropdirection, y is randomized
-                Vector2 dropDirection = new Vector2(xDirection, Random.Range(0.75f, 1f)).normalized;
-
-                rb.AddForce(dropDirection * force * wakeUpBounceFactor, ForceMode2D.Impulse);
+                
+                // Set the ball's position to the touch coordinates
+                transform.position = new Vector2(touchPosition.x, transform.position.y);
+                
             }
 
             if (!rb.IsSleeping())
