@@ -33,6 +33,23 @@ namespace MiniGamePlinko
 
         private void Update()
         {
+
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //RaycastHit hit;
+
+            if (Input.GetMouseButtonDown(0) && rb.IsSleeping() && cameraFollow.IsCameraFocused())
+            {
+                rb.WakeUp();
+
+                //get touch
+                Vector2 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
+                // Set the ball's position to the touch coordinates
+                transform.position = new Vector2(touchPosition.x, transform.position.y);
+            }
+
+
             if (Input.touchCount == 1 && rb.IsSleeping() && cameraFollow.IsCameraFocused())
             {
                 rb.WakeUp();
