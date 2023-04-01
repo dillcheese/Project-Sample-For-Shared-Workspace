@@ -7,6 +7,7 @@ public class Manager : MonoBehaviour
 {
 
     public TMP_Text TextReward;
+    public TMP_Text prizeText;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,7 @@ public class Manager : MonoBehaviour
 
 
         TextReward.text = "Your Jackpot is: " + roundedJackpot + "\n Accuracy is: " + roundedAccuracy + "%\n Target Time is: " + roundedTime + "s";
-
+        prizeText.text = ""+roundedJackpot;
     }
 
     // Update is called once per frame

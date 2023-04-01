@@ -32,7 +32,7 @@ namespace MiniGameClaw
         private Vector2 initialPosition;
         private Vector2 initialArmSize;
         private Vector2 initialGrabberPosition;
-        [SerializeField]private float targetX;
+        [SerializeField] private float targetX;
 
         public RectTransform prize; // prize box that the grab picks up
 
@@ -57,18 +57,17 @@ namespace MiniGameClaw
             //get mouse input for pc debug
             if (Input.GetMouseButtonDown(0) && !gotPrize && !gettingPrize)
             {
+                Debug.Log("Mouse");
+
                 RectTransform canvasRect = mainCanvas.GetComponent<RectTransform>();
                 Vector2 canvasPosition;
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, Camera.main, out canvasPosition);
 
-
                 RectTransform touchRect = touchArea.GetComponent<RectTransform>();
 
-                // if (touchRect.rect.Contains(canvasPosition))
                 if (RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition, Camera.main))
                 { //touched inside
-
-                    Debug.Log("inside");
+                    Debug.Log("inside mouse");
 
                     // Set the target X position to the converted canvas position
                     targetX = canvasPosition.x;
@@ -82,29 +81,23 @@ namespace MiniGameClaw
                     text2.SetActive(false);
                     touchArea.SetActive(false);
                 }
-
-                else //touched outside so random position (-100 to 450)
-                {
-                  
-                }
-
             }
 
             //get touch from user
             if (Input.touchCount == 1 && !gotPrize && !gettingPrize)
             {
+                Debug.Log("Touch");
+
                 // Convert touch position to canvas space
                 RectTransform canvasRect = mainCanvas.GetComponent<RectTransform>();
                 Vector2 canvasPosition;
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.GetTouch(0).position, Camera.main, out canvasPosition);
-                
+
                 RectTransform touchRect = touchArea.GetComponent<RectTransform>();
 
-          // if (touchRect.rect.Contains(canvasPosition))
                 if (RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.GetTouch(0).position, Camera.main))
                 { //touched inside
-
-                    Debug.Log("inside");
+                    Debug.Log("inside  touch");
 
                     // Set the target X position to the converted canvas position
                     targetX = canvasPosition.x;
@@ -118,12 +111,6 @@ namespace MiniGameClaw
                     text2.SetActive(false);
                     touchArea.SetActive(false);
                 }
-
-                else //touched outside so random position (-100 to 450)
-                {
-                
-                }
- 
             }
 
             if (gotPrize)
@@ -136,22 +123,11 @@ namespace MiniGameClaw
         {
             // Move the claw to the target X position
             float startTime = Time.time;
-            //float distance = Mathf.Abs(targetX - initialPosition.x);
-            //float speed = distance / moveTime;
-            //float minDistance = 200;
-            //Debug.Log(distance);
             while (Time.time < startTime + moveTime)
             {
                 float t = (Time.time - startTime) / moveTime;
-                          claw.anchoredPosition = new Vector2(Mathf.Lerp(initialPosition.x, targetX, t), claw.anchoredPosition.y);
-                //if (distance < minDistance)
-                //{
-                //    claw.anchoredPosition += new Vector2(Mathf.Sign(targetX - initialPosition.x) * speed * Time.deltaTime, 0f);
-                //}
-                //else
-                //{
-                //    claw.anchoredPosition = new Vector2(Mathf.Lerp(initialPosition.x, targetX, t), claw.anchoredPosition.y);
-                //}
+                claw.anchoredPosition = new Vector2(Mathf.Lerp(initialPosition.x, targetX, t), claw.anchoredPosition.y);
+
                 yield return null;
             }
 
