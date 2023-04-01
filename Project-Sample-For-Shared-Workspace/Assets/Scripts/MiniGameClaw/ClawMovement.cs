@@ -77,22 +77,17 @@ namespace MiniGameClaw
 
                     // Set the ball's position to the touch coordinates
                     StartCoroutine(MoveClaw(targetX));
+
+                    text1.SetActive(false);
+                    text2.SetActive(false);
+                    touchArea.SetActive(false);
                 }
 
                 else //touched outside so random position (-100 to 450)
                 {
-                    // Set the target X position to the converted canvas position
-                    // targetX = Random.Range(-100,450);
-
-                    //gettingPrize = true;
-                    // Set the ball's position to the touch coordinates
-                    //StartCoroutine(MoveClaw(targetX));
+                  
                 }
 
-
-                text1.SetActive(false);
-                text2.SetActive(false);
-                touchArea.SetActive(false);
             }
 
             //get touch from user
@@ -118,22 +113,17 @@ namespace MiniGameClaw
 
                     // Set the ball's position to the touch coordinates
                     StartCoroutine(MoveClaw(targetX));
+
+                    text1.SetActive(false);
+                    text2.SetActive(false);
+                    touchArea.SetActive(false);
                 }
 
                 else //touched outside so random position (-100 to 450)
                 {
-                    // Set the target X position to the converted canvas position
-                   // targetX = Random.Range(-100,450);
-
-                    //gettingPrize = true;
-                    // Set the ball's position to the touch coordinates
-                    //StartCoroutine(MoveClaw(targetX));
-                }
                 
-
-                text1.SetActive(false);
-                text2.SetActive(false);
-                touchArea.SetActive(false);
+                }
+ 
             }
 
             if (gotPrize)
