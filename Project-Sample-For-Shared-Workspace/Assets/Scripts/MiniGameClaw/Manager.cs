@@ -24,7 +24,7 @@ public class Manager : MonoBehaviour
         int roundedTime = Mathf.RoundToInt(timeIndex / 5f) * 5;
 
 
-        TextReward.text = "Your Jackpot is: " + roundedJackpot + "\n Accuracy is: " + roundedAccuracy + "\n Target Time is: " + roundedTime;
+        TextReward.text = "Your Jackpot is: " + roundedJackpot + "\n Accuracy is: " + roundedAccuracy + "%\n Target Time is: " + roundedTime + "s";
 
     }
 
