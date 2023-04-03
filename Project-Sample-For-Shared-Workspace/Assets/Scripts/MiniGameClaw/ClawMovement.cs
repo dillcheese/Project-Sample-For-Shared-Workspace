@@ -133,29 +133,37 @@ namespace MiniGameClaw
 
             // Lower the grabber to the lower Y position
             startTime = Time.time;
-            while (grabber.anchoredPosition.y > lowerY)
+           // while (grabber.anchoredPosition.y > lowerY)
+            while (claw.anchoredPosition.y > lowerY)
             {
                 float t = (Time.time - startTime) / moveTime;
-                grabber.anchoredPosition = new Vector2(grabber.anchoredPosition.x,
-                    Mathf.Lerp(initialGrabberPosition.y, lowerY, t));
-                arm.sizeDelta = new Vector2(initialArmSize.x, Mathf.Lerp(initialArmSize.y, 1600f, t));
+                //grabber.anchoredPosition = new Vector2(grabber.anchoredPosition.x, Mathf.Lerp(initialGrabberPosition.y, lowerY, t));
+                claw.anchoredPosition = new Vector2(claw.anchoredPosition.x, Mathf.Lerp(initialPosition.y, lowerY, t));
+
+
+               // arm.sizeDelta = new Vector2(initialArmSize.x, Mathf.Lerp(initialArmSize.y, 1600f, t));
                 yield return null;
             }
 
             // Idle for 1 second
             yield return new WaitForSeconds(idleTime);
-            prize.anchoredPosition = new Vector2(grabber.anchoredPosition.x, grabber.anchoredPosition.y - grabber.sizeDelta.y);
+            //prize.anchoredPosition = new Vector2(grabber.anchoredPosition.x, grabber.anchoredPosition.y - grabber.sizeDelta.y);
+            prize.anchoredPosition = new Vector2(claw.anchoredPosition.x, claw.anchoredPosition.y - grabber.sizeDelta.y);
             grabberSprite.sprite = grabberClamp;
 
             // Raise the grabber back to the initial Y position
             startTime = Time.time;
-            while (grabber.anchoredPosition.y < initialGrabberPosition.y)
+           // while (grabber.anchoredPosition.y < initialGrabberPosition.y)
+            while (claw.anchoredPosition.y < initialPosition.y)
             {
                 float t = (Time.time - startTime) / raiseTime;
-                grabber.anchoredPosition = new Vector2(grabber.anchoredPosition.x,
-                    Mathf.Lerp(lowerY, initialGrabberPosition.y, t));
-                arm.sizeDelta = new Vector2(initialArmSize.x, Mathf.Lerp(1600f, initialArmSize.y, t));
-                prize.anchoredPosition = new Vector2(claw.anchoredPosition.x, grabber.anchoredPosition.y - grabber.sizeDelta.y + 25);
+              //  grabber.anchoredPosition = new Vector2(grabber.anchoredPosition.x, Mathf.Lerp(lowerY, initialGrabberPosition.y, t));
+               // arm.sizeDelta = new Vector2(initialArmSize.x, Mathf.Lerp(1600f, initialArmSize.y, t));
+
+                claw.anchoredPosition = new Vector2(claw.anchoredPosition.x, Mathf.Lerp(lowerY, initialPosition.y,  t));
+
+              //  prize.anchoredPosition = new Vector2(claw.anchoredPosition.x, grabber.anchoredPosition.y - grabber.sizeDelta.y + 25);
+                prize.anchoredPosition = new Vector2(claw.anchoredPosition.x, claw.anchoredPosition.y - (grabber.sizeDelta.y*1.75f) );
 
                 yield return null;
             }
@@ -166,7 +174,8 @@ namespace MiniGameClaw
             {
                 float t = (Time.time - startTime) / moveTime;
                 claw.anchoredPosition = new Vector2(Mathf.Lerp(targetX, initialPosition.x, t), claw.anchoredPosition.y);
-                prize.anchoredPosition = new Vector2(claw.anchoredPosition.x, grabber.anchoredPosition.y - grabber.sizeDelta.y + 25);
+               // prize.anchoredPosition = new Vector2(claw.anchoredPosition.x, grabber.anchoredPosition.y - grabber.sizeDelta.y + 25);
+                prize.anchoredPosition = new Vector2(claw.anchoredPosition.x, claw.anchoredPosition.y - (grabber.sizeDelta.y * 1.75f));
 
                 yield return null;
             }
